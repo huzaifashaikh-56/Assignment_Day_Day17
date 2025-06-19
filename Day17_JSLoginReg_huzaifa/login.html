@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login</title>
+</head>
+<body>
+  <h2>Login</h2>
+  <form id="loginForm">
+    <input type="email" id="email" placeholder="Email" required><br><br>
+    <input type="password" id="password" placeholder="Password" required><br><br>
+    <button type="submit">Login</button>
+    <p id="errorMsg" style="color:red;"></p>
+  </form>
+
+  <script>
+    const loginForm = document.getElementById('loginForm');
+    const errorMsg = document.getElementById('errorMsg');
+
+    loginForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      const userData = JSON.parse(localStorage.getItem(email));
+
+      if (userData && userData.password === password) {
+        sessionStorage.setItem("loggedInUser", JSON.stringify(userData));
+        window.location.href = "welcome.html";
+      } else {
+        errorMsg.textContent = "Invalid email or password.";
+      }
+    });
+  </script>
+</body>
+</html>
